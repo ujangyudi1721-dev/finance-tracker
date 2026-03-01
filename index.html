@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+      <head>
+            <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+            />
+            <title>Keuangan Pribadi</title>
+            <link rel="stylesheet" href="style.css" />
+            <!-- Supabase CDN -->
+            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+      </head>
+
+      <body>
+            <h2>Tambah Transaksi</h2>
+
+            <input type="date" id="tanggal" /><br /><br />
+
+            <select id="tipe">
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option></select
+            ><br /><br />
+
+            <input
+                  type="text"
+                  id="kategori"
+                  placeholder="Kategori"
+            /><br /><br />
+
+            <input type="number" id="jumlah" placeholder="Jumlah" /><br /><br />
+
+            <input
+                  type="text"
+                  id="keterangan"
+                  placeholder="Keterangan"
+            /><br /><br />
+
+            <button id="btnSimpan">Simpan</button>
+
+            <!-- memanggil struktur card-->
+            <h2>Dashboard Keuangan</h2>
+            <div class="cards">
+                  <div class="card income">
+                        <h3>Total Income</h3>
+                        <p id="totalIncome">0</p>
+                  </div>
+
+                  <div class="card expense">
+                        <h3>Total Expense</h3>
+                        <p id="totalExpense">0</p>
+                  </div>
+
+                  <div class="card saldo">
+                        <h3>Saldo</h3>
+                        <p id="totalSaldo">0</p>
+                  </div>
+            </div>
+
+            <!-- memanggil chart grafik -->
+            <h3>Grafik Keuangan</h3>
+            <div class="chart-container">
+                  <canvas id="chartKeuangan"></canvas>
+            </div>
+
+            <div id="hasil"></div>
+
+            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="app.js"></script>
+      </body>
+</html>
