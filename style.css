@@ -15,20 +15,20 @@ nav a {
 }
 
 #transactionList li {
-      padding: 8px;
-      margin-bottom: 6px;
-      border-radius: 6px;
-      font-weight: 500;
+      background-color: white;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
 }
 
 .income {
-      background-color: #e6ffed;
       color: #0a7a28;
+      font-weight: bold;
 }
 
 .expense {
-      background-color: #ffe6e6;
       color: #920a1e;
+      font-weight: bold;
 }
 
 button {
@@ -53,17 +53,16 @@ button {
       flex: 1;
       padding: 20px;
       border-radius: 10px;
-      color: white;
       font-weight: bold;
 }
 
 .income {
-      background: #28a745;
+      border-left: 5px solid #16a34a;
 }
 
 .expense {
-      background: #cfb4b9;
+      border-left: 5px solid #dc2626;
 }
 .saldo {
-      background: #007bff;
+      border-left: 5px solid #0713ec;
 }

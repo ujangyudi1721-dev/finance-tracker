@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       async function loadData() {
             const { data, error } = await supabaseClient
                   .from("transactions")
-                  .select("*");
+                  .select("*")
+                  .order("id", {ascending: false})
+                  .limit(10);
 
             console.log("Data dari supabase:", data);
             let totalIncome = 0;
