@@ -8,3 +8,38 @@ nav a {
       margin-right: 20px;
       text-decoration: none;
 }
+
+#transactionList {
+      list-style: none;
+      padding: 0;
+}
+
+#transactionList li {
+      padding: 8px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      font-weight: 500;
+}
+
+.income {
+      background-color: #e6ffed;
+      color: #0a7a28;
+}
+
+.expense {
+      background-color: #ffe6e6;
+      columns: #b00020;
+}
+
+button {
+      margin-left: 10px;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+}
+
+.deleteBtn {
+      background-color: #b00020;
+      color: white;
+}

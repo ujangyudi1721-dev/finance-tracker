@@ -6,6 +6,7 @@
       </head>
 
       <body>
+            <!-- Nav bar -->
             <nav>
                   <a href="index.html">Dashboard</a>
                   <a href="input.html">Input Transaksi</a>
@@ -13,10 +14,17 @@
 
             <h2>Dashboard</h2>
 
+            <!-- total income expense -->
             <h3>Total Income: <span id="totalIncome">0</span></h3>
             <h3>Total Expense: <span id="totalExpense">0</span></h3>
 
+            <!-- transaction list -->
+            <h3>Riwayat Transaksi</h3>
+            <ul id="transactionList"></ul>
+
+            <!-- script js-->
             <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
             <script src="app.js"></script>
+            <script src="dashboard.js"></script>
       </body>
 </html>
