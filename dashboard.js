@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const { data, error } = await supabaseClient
                   .from("transactions")
                   .select("*")
-                  .order("id", {ascending: false})
+                  .order("id", { ascending: false })
                   .limit(10);
 
             console.log("Data dari supabase:", data);
@@ -64,6 +64,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                   "Rp " + totalExpense.toLocaleString("id-ID");
             document.getElementById("totalSaldo").innerText =
                   "Rp " + saldo.toLocaleString("id-ID");
+
+            // --- fungsi grafik ---
+            const ctx = document.getElementById("financeChart");
+
+            new Chart(ctx, {
+                  type: "bar",
+                  data: {
+                        labels: ["Income", "Expense"],
+                        datasets: [
+                              {
+                                    label: "Total (Rp)",
+                                    data: [totalIncome, totalExpense],
+                                    backgroundColor: ["#16a34a", "#dc2626"],
+                              },
+                        ],
+                  },
+            });
 
             // --- EvenListener untuk delete ---
             document.querySelectorAll(".deleteBtn").forEach((button) => {
