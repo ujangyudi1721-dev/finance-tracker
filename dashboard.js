@@ -80,6 +80,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                               },
                         ],
                   },
+                  options: {
+                        responsive: true,
+                        maintainAspectRatio: false, // --- Wajib kalau pakai height CSS
+                        plugins: {
+                              legend: { display: false },
+                        },
+                        scales: {
+                              y: { beginAtZero: true },
+                        },
+                  },
             });
 
             // --- EvenListener untuk delete ---

@@ -68,3 +68,10 @@ button {
       border-left: 8px solid #0713ec;
       color: #0713ec;
 }
+
+.chart-container {
+      width: 100%;
+      max-width: 600px;         /* --- Batas lebar --- */
+      height: 300px;                /* --- Tinggi tetap --- */
+      margin: 20px auto;         /* --- Tengah --- */
+}
