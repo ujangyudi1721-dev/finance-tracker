@@ -45,15 +45,41 @@ document.addEventListener("DOMContentLoaded", async () => {
                   }
 
                   //--- Elemen list ---
-                  const li = document.createElement("li");
-                  li.classList.add(tipe === "income" ? "income" : "expense");
+                  listEl.innerHTML = "";
+                  data.slice(0, 10).forEach((item) => {
+                        const li = document.createElement("li");
 
-                  li.innerHTML = `${tipe.toUpperCase()} - Rp ${jumlah.toLocaleString("id-ID")}
-            <button data-id="${item.id}" class="editBtn">Edit</button>
-            <button data-id="${item.id}" class="deleteBtn">Hapus</button>
-            `;
+                        const tipe = item.tipe?.toLowerCase();
+                        const jumlah = Number(item.jumlah) || 0;
 
-                  listEl.appendChild(li);
+                        li.classList.add("transaction-item");
+                        li.classList.add(
+                              tipe === "income" ? "income" : "expense",
+                        );
+
+                        li.innerHTML = `
+                              <div class="transaction-left">
+                                    <div class="transaction-title">
+                                          ${item.keterangan || "Tanpa Keterangan"}
+                                    </div>
+                                    <div class="transaction-date">
+                                          ${new Date(item.tanggal).toLocaleDateString("id-ID")}
+                                    </div>
+                              </div>
+                              
+                              <div class="transaction-right">
+                                    <div class="transaction-amount">
+                                          Rp ${jumlah.toLocaleString("id-ID")}
+                                    </div>
+                                    <div class="transaction-actions">
+                                          <button onclick="editData(${item.id})">Edit</button>
+                                          <button onclick="deleteData(${item.id})">Delete</button>
+                                    </div>
+                              </div>
+                        `;
+
+                        listEl.appendChild(li);
+                  });
             });
 
             const saldo = totalIncome - totalExpense;
@@ -92,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   },
             });
 
-            // --- EvenListener untuk delete ---
+            /*// --- EvenListener untuk delete ---
             document.querySelectorAll(".deleteBtn").forEach((button) => {
                   button.addEventListener("click", async (e) => {
                         const id = e.target.dataset.id;
@@ -127,7 +153,31 @@ document.addEventListener("DOMContentLoaded", async () => {
                         const id = btn.getAttribute("data-id");
                         window.location.href = `input.html?id=${id}`;
                   });
-            });
+            }); */
       }
       loadData();
 });
+async function deleteData(id) {
+    const confirmDelete = confirm("Yakin mau hapus transaksi ini?");
+    if (!confirmDelete) return;
+
+    const { error } = await supabaseClient
+        .from("transactions")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        alert("Gagal menghapus");
+        console.error(error);
+        return;
+    }
+
+    location.reload();
+}
+
+function editData(id) {
+    window.location.href = `input.html?id=${id}`;
+}
+
+window.editData = editData;
+window.deleteData = deleteData;

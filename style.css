@@ -71,7 +71,53 @@ button {
 
 .chart-container {
       width: 100%;
-      max-width: 600px;         /* --- Batas lebar --- */
-      height: 300px;                /* --- Tinggi tetap --- */
-      margin: 20px auto;         /* --- Tengah --- */
+      max-width: 600px; /* --- Batas lebar --- */
+      height: 300px; /* --- Tinggi tetap --- */
+      margin: 20px auto; /* --- Tengah --- */
+}
+
+.transaction-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.transaction-title {
+      font-weight: 600;
+      font-size: 14px;
+}
+.display-left {
+      display: flex;
+      flex-direction: column;
+}
+.transaction-date {
+    font-size: 12px;
+    color: gray;
+}
+.transaction-amount {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.transaction-actions button {
+    margin-left: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.transaction-actions button:first-child {
+    background: #3b82f6;
+    color: white;
+}
+
+.transaction-actions button:last-child {
+    background: #ef4444;
+    color: white;
 }
