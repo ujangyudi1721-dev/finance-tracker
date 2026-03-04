@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const form = document.getElementById("formKeuangan");
       const params = new URLSearchParams(window.location.search);
       const btnSimpan = document.getElementById("btnSimpan");
-      const btnUpdate = document.getElementById("submitBtn");
+      const btnUpdate = document.getElementById("editData");
 
       const id = params.get("id");
       console.log("ID DARI URL:", id);
@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("jumlah").value = data.jumlah;
             document.getElementById("keterangan").value = data.keterangan;
 
-            document.getElementById("submitBtn").innerText = "Update";
+            document.getElementById("editData").innerText = "Update";
       }
       const button = document.getElementById("btnSimpan");
-      const sub_button = document.getElementById("submitBtn");
+      const sub_button = document.getElementById("editData");
 
       // --- logic button simpan ---
       button.addEventListener("click", async () => {

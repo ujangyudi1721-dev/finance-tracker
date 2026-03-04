@@ -158,25 +158,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       loadData();
 });
 async function deleteData(id) {
-    const confirmDelete = confirm("Yakin mau hapus transaksi ini?");
-    if (!confirmDelete) return;
+      const confirmDelete = confirm("Yakin mau hapus transaksi ini?");
+      if (!confirmDelete) return;
 
-    const { error } = await supabaseClient
-        .from("transactions")
-        .delete()
-        .eq("id", id);
+      const { error } = await supabaseClient
+            .from("transactions")
+            .delete()
+            .eq("id", id);
 
-    if (error) {
-        alert("Gagal menghapus");
-        console.error(error);
-        return;
-    }
+      if (error) {
+            alert("Gagal menghapus");
+            console.error(error);
+            return;
+      }
 
-    location.reload();
+      location.reload();
 }
 
 function editData(id) {
-    window.location.href = `input.html?id=${id}`;
+      window.location.href = `input.html?id=${id}`;
 }
 
 window.editData = editData;
