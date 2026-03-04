@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("kategori").value = data.kategori;
             document.getElementById("jumlah").value = data.jumlah;
             document.getElementById("keterangan").value = data.keterangan;
+            document.getElementById("akun").value = data.akun;
 
             document.getElementById("editData").innerText = "Update";
       }
@@ -36,16 +37,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       const sub_button = document.getElementById("editData");
 
       // --- logic button simpan ---
-      button.addEventListener("click", async () => {
+      /* button.addEventListener("click", async () => {
             const tanggal = document.getElementById("tanggal").value;
             const tipe = document.getElementById("tipe").value;
             const kategori = document.getElementById("kategori").value;
             const jumlah = document.getElementById("jumlah").value;
             const keterangan = document.getElementById("keterangan").value;
+            const akun = document.getElementById("akun").value;
 
             const { error } = await supabaseClient
                   .from("transactions")
-                  .insert([{ tanggal, tipe, kategori, jumlah, keterangan }]);
+                  .insert([
+                        { tanggal, tipe, kategori, jumlah, keterangan, akun },
+                  ]);
 
             if (error) {
                   console.error(error);
@@ -61,8 +65,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                   const keterangan = (document.getElementById(
                         "keterangan",
                   ).value = "");
+                  const akun = (document.getElementById("akun").value = "");
             }
       });
+      */
 
       // --- Logic submit ---
       form.addEventListener("submit", async (e) => {
@@ -75,18 +81,31 @@ document.addEventListener("DOMContentLoaded", async () => {
             const kategori = document.getElementById("kategori").value;
             const jumlah = document.getElementById("jumlah").value;
             const keterangan = document.getElementById("keterangan").value;
+            const akun = document.getElementById("akun").value;
 
             if (editId) {
                   await supabaseClient
                         .from("transactions")
-                        .update({ tanggal, tipe, kategori, jumlah, keterangan })
+                        .update({
+                              tanggal,
+                              tipe,
+                              kategori,
+                              jumlah,
+                              keterangan,
+                              akun,
+                        })
                         .eq("id", editId);
             } else {
-                  await supabaseClient
-                        .from("transactions")
-                        .insert([
-                              { tanggal, tipe, kategori, jumlah, keterangan },
-                        ]);
+                  await supabaseClient.from("transactions").insert([
+                        {
+                              tanggal,
+                              tipe,
+                              kategori,
+                              jumlah,
+                              keterangan,
+                              akun,
+                        },
+                  ]);
             }
             window.location.href = "index.html";
       });

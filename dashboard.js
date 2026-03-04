@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log("Data dari supabase:", data);
             let totalIncome = 0;
             let totalExpense = 0;
+            let totalCash = 0;
+            let totalCimb = 0;
             if (error) {
                   console.error(error);
                   return;
@@ -44,6 +46,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                         totalExpense += jumlah;
                   }
 
+                  if (item.akun === "cash") {
+                        if (tipe === "income") totalCash += jumlah;
+                        if (tipe === "expense") totalCash -= jumlah;
+                  }
+                  if (item.akun === "cimb") {
+                        if (tipe === "income") totalCimb += jumlah;
+                        if (tipe === "expense") totalCimb -= jumlah;
+                  }
+
                   //--- Elemen list ---
                   listEl.innerHTML = "";
                   data.slice(0, 10).forEach((item) => {
@@ -51,6 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         const tipe = item.tipe?.toLowerCase();
                         const jumlah = Number(item.jumlah) || 0;
+                        const akun = item.akun?.toLowerCase();
 
                         li.classList.add("transaction-item");
                         li.classList.add(
@@ -59,11 +71,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         li.innerHTML = `
                               <div class="transaction-left">
+                                    <div class="transaction-date">
+                                          ${new Date(item.tanggal).toLocaleDateString("id-ID")}
+                                    </div>
                                     <div class="transaction-title">
                                           ${item.keterangan || "Tanpa Keterangan"}
                                     </div>
-                                    <div class="transaction-date">
-                                          ${new Date(item.tanggal).toLocaleDateString("id-ID")}
+                                    <div class="transaction-acount">
+                                          ${akun.toLocaleString("id-ID")}
                                     </div>
                               </div>
                               
@@ -90,6 +105,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                   "Rp " + totalExpense.toLocaleString("id-ID");
             document.getElementById("totalSaldo").innerText =
                   "Rp " + saldo.toLocaleString("id-ID");
+            document.getElementById("totalCash").innerText =
+                  "Rp " + totalCash.toLocaleString("id-ID");
+            document.getElementById("totalCimb").innerText =
+                  "Rp " + totalCimb.toLocaleString("id-ID");
 
             // --- fungsi grafik ---
             const ctx = document.getElementById("financeChart");
@@ -117,43 +136,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         },
                   },
             });
-
-            /*// --- EvenListener untuk delete ---
-            document.querySelectorAll(".deleteBtn").forEach((button) => {
-                  button.addEventListener("click", async (e) => {
-                        const id = e.target.dataset.id;
-
-                        const confirmDelete = confirm(
-                              "Yakin mau hapus transaksi ini? ",
-                        );
-                        if (!confirmDelete) return;
-
-                        const { error } = await supabaseClient
-                              .from("transactions")
-                              .delete()
-                              .eq("id", id);
-
-                        if (error) {
-                              console.error(error);
-                              alert("Gagal menghapus");
-                              return;
-                        }
-
-                        // --- Hapus elemen dari tampilan
-                        e.target.parentElement.remove();
-
-                        // --- Reload halaman supaya total update (secara simple dulu)
-                        location.reload();
-                  });
-            });
-
-            // --- even listener untuk edit button ---
-            document.querySelectorAll(".editBtn").forEach((btn) => {
-                  btn.addEventListener("click", () => {
-                        const id = btn.getAttribute("data-id");
-                        window.location.href = `input.html?id=${id}`;
-                  });
-            }); */
       }
       loadData();
 });
