@@ -17,10 +17,44 @@ document.addEventListener("DOMContentLoaded", async () => {
                   .limit(10);
 
             console.log("Data dari supabase:", data);
+            const groupedTransfer = {};
+            const finalTransaction = [];
+
+            data.forEach((item) => {
+                  if (item.tipe === "transfer") {
+                        if (!groupedTransfer[item.transfer_group]) {
+                              groupedTransfer[item.transfer_group] = {};
+                        }
+
+                        if (item.transfer_type === "out") {
+                              groupedTransfer[item.transfer_group].from = item;
+                        }
+
+                        if (item.transfer_type === "in") {
+                              groupedTransfer[item.transfer_group].to = item;
+                        }
+                  } else {
+                        finalTransaction.push(item);
+                  }
+            });
+
+            Object.values(groupedTransfer).forEach((t) => {
+                  if (t.from && t.to) {
+                        finalTransaction.push({
+                              tipe: "transfer",
+                              tanggal: t.from.tanggal,
+                              jumlah: t.from.jumlah,
+                              akun_dari: t.from.akun,
+                              akun_ke: t.to.akun,
+                              keterangan: `Transfer ${t.from.akun} → ${t.to.akun}`,
+                        });
+                  }
+            });
             let totalIncome = 0;
             let totalExpense = 0;
             let totalCash = 0;
             let totalCimb = 0;
+
             if (error) {
                   console.error(error);
                   return;
@@ -28,10 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             //--------- Urutkan terbaru di atas (berdasarkan id atau created_at)
             data.sort((a, b) => b.id - a.id);
-
-            // ------- fungsi untuk menampilkan di span dashboard ----
-            //let totalIncome = 0;
-            //let totalExpense = 0;
 
             //------ fungsi perhitungan -------
             data.forEach((item) => {
@@ -49,36 +79,80 @@ document.addEventListener("DOMContentLoaded", async () => {
                   if (item.akun === "cash") {
                         if (tipe === "income") totalCash += jumlah;
                         if (tipe === "expense") totalCash -= jumlah;
+                        if (tipe === "transfer") {
+                              if (item.transfer_type === "out")
+                                    totalCash -= jumlah;
+                              if (item.transfer_type === "in")
+                                    totalCash += jumlah;
+                        }
                   }
                   if (item.akun === "cimb") {
                         if (tipe === "income") totalCimb += jumlah;
                         if (tipe === "expense") totalCimb -= jumlah;
+                        if (tipe === "transfer") {
+                              if (item.transfer_type === "out")
+                                    totalCimb -= jumlah;
+                              if (item.transfer_type === "in")
+                                    totalCimb += jumlah;
+                        }
+                  }
+            });
+            //--- Elemen list ---
+            listEl.innerHTML = "";
+            finalTransaction.slice(0, 10).forEach((item) => {
+                  const li = document.createElement("li");
+                  const akun = item.akun?.toLowerCase();
+                  const tipe = item;
+
+                  li.classList.add("transaction-item");
+                  if (tipe === "income") {
+                        li.classList.add("income");
+                  }
+                  if (tipe === "expense") {
+                        li.classList.add("expense");
+                  }
+                  if (tipe === "transfer") {
+                        li.classList.add("transfer");
                   }
 
-                  //--- Elemen list ---
-                  listEl.innerHTML = "";
-                  data.slice(0, 10).forEach((item) => {
-                        const li = document.createElement("li");
+                  const jumlah = Number(item.jumlah) || 0;
+                  if (item.tipe === "transfer") {
+                        li.innerHTML = `
+                              <div class="transaction-left">
 
-                        const tipe = item.tipe?.toLowerCase();
-                        const jumlah = Number(item.jumlah) || 0;
-                        const akun = item.akun?.toLowerCase();
+                                    <div class="transaction-title">
+                                          🔁 ${item.akun_dari} → ${item.akun_ke}
+                                    </div>
 
-                        li.classList.add("transaction-item");
-                        li.classList.add(
-                              tipe === "income" ? "income" : "expense",
-                        );
+                                    <div class="transaction-date">
+                                    ${new Date(item.tanggal).toLocaleDateString("id-ID")}
+                                    </div>
 
+                              </div>
+
+<div class="transaction-right">
+
+<div class="transaction-amount">
+Rp ${Number(item.jumlah).toLocaleString("id-ID")}
+</div>
+<div class="transaction-actions">
+                                          <button onclick="editData(${item.id})">Edit</button>
+                                          <button onclick="deleteData(${item.id})">Delete</button>
+                                    </div>
+</div>
+                              `;
+                  } else {
                         li.innerHTML = `
                               <div class="transaction-left">
                                     <div class="transaction-date">
                                           ${new Date(item.tanggal).toLocaleDateString("id-ID")}
                                     </div>
                                     <div class="transaction-title">
-                                          ${item.keterangan || "Tanpa Keterangan"}
+                                          ${item.tipe === "income" ? "➕" : ""}
+                                          ${item.tipe === "expense" ? "➖" : ""}
                                     </div>
                                     <div class="transaction-acount">
-                                          ${akun.toLocaleString("id-ID")}
+                                          ${item.akun}
                                     </div>
                               </div>
                               
@@ -92,9 +166,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                                     </div>
                               </div>
                         `;
-
-                        listEl.appendChild(li);
-                  });
+                  }
+                  listEl.appendChild(li);
             });
 
             const saldo = totalIncome - totalExpense;
@@ -116,12 +189,22 @@ document.addEventListener("DOMContentLoaded", async () => {
             new Chart(ctx, {
                   type: "bar",
                   data: {
-                        labels: ["Income", "Expense"],
+                        labels: ["Income", "Expense", "Cash", "Cimb"],
                         datasets: [
                               {
                                     label: "Total (Rp)",
-                                    data: [totalIncome, totalExpense],
-                                    backgroundColor: ["#16a34a", "#dc2626"],
+                                    data: [
+                                          totalIncome,
+                                          totalExpense,
+                                          totalCash,
+                                          totalCimb,
+                                    ],
+                                    backgroundColor: [
+                                          "#16a34a",
+                                          "red",
+                                          "gold",
+                                          "darkred",
+                                    ],
                               },
                         ],
                   },

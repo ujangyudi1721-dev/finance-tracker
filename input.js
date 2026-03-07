@@ -33,42 +33,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             document.getElementById("editData").innerText = "Update";
       }
-      const button = document.getElementById("btnSimpan");
-      const sub_button = document.getElementById("editData");
+      const tipeSelect = document.getElementById("tipe");
+      const transferField = document.getElementById("transferField");
 
-      // --- logic button simpan ---
-      /* button.addEventListener("click", async () => {
-            const tanggal = document.getElementById("tanggal").value;
-            const tipe = document.getElementById("tipe").value;
-            const kategori = document.getElementById("kategori").value;
-            const jumlah = document.getElementById("jumlah").value;
-            const keterangan = document.getElementById("keterangan").value;
-            const akun = document.getElementById("akun").value;
-
-            const { error } = await supabaseClient
-                  .from("transactions")
-                  .insert([
-                        { tanggal, tipe, kategori, jumlah, keterangan, akun },
-                  ]);
-
-            if (error) {
-                  console.error(error);
-                  return;
+      tipeSelect.addEventListener("change", () => {
+            if (tipeSelect.value === "transfer") {
+                  transferField.style.display = "block";
             } else {
-                  alert("Data berhasil disimpan");
-                  const tanggal = (document.getElementById("tanggal").value =
-                        "");
-                  const tipe = (document.getElementById("tipe").value = "");
-                  const kategori = (document.getElementById("kategori").value =
-                        "");
-                  const jumlah = (document.getElementById("jumlah").value = "");
-                  const keterangan = (document.getElementById(
-                        "keterangan",
-                  ).value = "");
-                  const akun = (document.getElementById("akun").value = "");
+                  transferField.style.display = "none";
             }
       });
-      */
+
+      const button = document.getElementById("btnSimpan");
+      const sub_button = document.getElementById("editData");
 
       // --- Logic submit ---
       form.addEventListener("submit", async (e) => {
@@ -83,30 +60,71 @@ document.addEventListener("DOMContentLoaded", async () => {
             const keterangan = document.getElementById("keterangan").value;
             const akun = document.getElementById("akun").value;
 
-            if (editId) {
-                  await supabaseClient
-                        .from("transactions")
-                        .update({
-                              tanggal,
-                              tipe,
-                              kategori,
-                              jumlah,
-                              keterangan,
-                              akun,
-                        })
-                        .eq("id", editId);
-            } else {
+            console.log("TIPE", tipe);
+            if (tipe === "transfer") {
+                  const tujuanAkun =
+                        document.getElementById("tujuanAkun").value;
+
+                  if (akun === tujuanAkun) {
+                        alert("Akun asal dan tujuan tidak boleh sama");
+                        return;
+                  }
+                  const transferGroup = crypto.randomUUID();
+                  // -- Akun Asal Dikurangi --
                   await supabaseClient.from("transactions").insert([
                         {
                               tanggal,
-                              tipe,
-                              kategori,
+                              tipe: "transfer",
+                              akun: akun,
                               jumlah,
-                              keterangan,
-                              akun,
+                              kategori,
+                              transfer_group: transferGroup,
+                              transfer_type: "out",
+                              keterangan: "Transfer keluar",
                         },
                   ]);
+
+                  // --- akun asal ditambah ---
+                  await supabaseClient.from("transactions").insert([
+                        {
+                              tanggal,
+                              tipe: "transfer",
+                              akun: tujuanAkun,
+                              jumlah,
+                              kategori,
+                              transfer_group: transferGroup,
+                              transfer_type: "in",
+                              keterangan: "Transfer masuk",
+                        },
+                  ]);
+                  console.log("TRANSFER BERHASIL");
+                  await "Transaksi Berhasil";
+            } else {
+                  if (editId) {
+                        await supabaseClient
+                              .from("transactions")
+                              .update({
+                                    tanggal,
+                                    tipe,
+                                    kategori,
+                                    jumlah,
+                                    keterangan,
+                                    akun,
+                              })
+                              .eq("id", editId);
+                  } else {
+                        await supabaseClient.from("transactions").insert([
+                              {
+                                    tanggal,
+                                    tipe,
+                                    kategori,
+                                    jumlah,
+                                    keterangan,
+                                    akun,
+                              },
+                        ]);
+                  }
             }
-            window.location.href = "index.html";
+            //window.location.href = "index.html";
       });
 });

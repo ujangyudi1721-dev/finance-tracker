@@ -26,12 +26,21 @@
                   <select id="tipe">
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
+                        <option value="transfer">Transfer</option>
                   </select>
 
                   <select id="akun">
                         <option value="cash">Cash</option>
                         <option value="cimb">CIMB</option>
                   </select>
+
+                  <div id="transferField" style="display:none;">
+                        <label>Transfer Ke</label>
+                        <select id="tujuanAkun">
+                              <option value="cash">Cash</option>
+                              <option value="cimb">CIMB</option>
+                        </select>
+                  </div>
 
                   <button type="submit" id="editData">Update</button>
                   <button id="btnSimpan">Simpan</button>
