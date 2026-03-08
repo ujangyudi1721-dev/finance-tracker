@@ -71,9 +71,14 @@ button {
 .expense {
       border-left: 8px solid #dc2626;
 }
+
+.aset {
+      border-left: 8px solid gold;
+      color: gold;
+}
 .saldo {
       border-left: 8px solid #0713ec;
-      color: #0713ec;
+      color: blue;
 }
 
 .chart-container {

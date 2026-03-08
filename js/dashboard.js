@@ -137,7 +137,7 @@ function renderChart(data) {
                   labels: ["Cash", "CIMB", "Neo Bank", "Sea Bank", "Bank BRI"],
                   datasets: [
                         {
-                              label: "total",
+                              label: "Grafik Saldo Akun",
                               data: [
                                     totalCash,
                                     totalCimb,
