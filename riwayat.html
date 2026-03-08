@@ -15,10 +15,66 @@
                   <a href="input.html">Transaksi</a>
             </nav>
             <h1>Riwayat Transaksi</h1>
-            <ul id="transactionList"></ul>
+
+            <!-- tampilan kolom search-->
+            <div style="margin-bottom: 20px; display: flex; gap: 10px">
+                  <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Cari keterangan"
+                  />
+
+                  <select id="filterType">
+                        <option value="all">Semua</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                        <option value="transfer">Transfer</option>
+                  </select>
+
+                  <select id="filterDate">
+                        <option value="all">Semua Tanggal</option>
+                        <option value="today">Hari Ini</option>
+                        <option value="7days">7 Hari terakhir</option>
+                        <option value="month">Bulan</option>
+                  </select>
+            </div>
+
+            <!-- tampilan u/ statistik diatas tabel riwayat -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px">
+                  <div>
+                        <strong>Total Income</strong><br />
+                        <span id="statIncome">0</span>
+                  </div>
+
+                  <div>
+                        <strong>Total Expense</strong><br />
+                        <span id="statExpense">0</span>
+                  </div>
+
+                  <div>
+                        <strong>Net Balance</strong><br />
+                        <span id="statBalance">0</span>
+                  </div>
+            </div>
+
+            <!-- tampilan tabel riwayat -->
+            <table border="1" width="100%">
+                  <thead>
+                        <tr>
+                              <th>Tanggal</th>
+                              <th>Tipe</th>
+                              <th>Akun</th>
+                              <th>Jumlah</th>
+                              <th>Keterangan</th>
+                              <th>Aksi</th>
+                        </tr>
+                  </thead>
+
+                  <tbody id="riwayatTable"></tbody>
+            </table>
 
             <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
             <script src="app.js"></script>
-            <script src="riwayat.js"></script>
+            <script type="module" src="js/riwayat.js"></script>
       </body>
 </html>

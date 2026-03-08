@@ -99,6 +99,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                   ]);
                   console.log("TRANSFER BERHASIL");
                   await "Transaksi Berhasil";
+                  alert("Transfer berhasil");
+                  window.location.href = "index.html";
             } else {
                   if (editId) {
                         await supabaseClient
@@ -112,6 +114,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                                     akun,
                               })
                               .eq("id", editId);
+                        alert("Edit data berhasil");
+                        window.location.href = "riwayat.html";
                   } else {
                         await supabaseClient.from("transactions").insert([
                               {
@@ -123,8 +127,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                                     akun,
                               },
                         ]);
+                        alert("Input data berhasil");
+                        window.location.href = "index.html";
                   }
             }
-            //window.location.href = "index.html";
       });
 });
