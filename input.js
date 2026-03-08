@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         },
                   ]);
                   console.log("TRANSFER BERHASIL");
-                  await "Transaksi Berhasil";
                   alert("Transfer berhasil");
                   window.location.href = "index.html";
             } else {

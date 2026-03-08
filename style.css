@@ -58,8 +58,10 @@ button {
 }
 
 .acount {
+      flex: 1;
       padding: 20px;
       border-radius: 25px;
+      align-content: center;
 }
 
 .income {
@@ -92,18 +94,18 @@ button {
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.transaction-item.transfer{
-background:#eff6ff;
-border-left:4px solid #2563eb;
+.transaction-item.transfer {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
 }
 
-.transaction-item.transfer .transaction-title{
-color:#2563eb;
-font-weight:600;
+.transaction-item.transfer .transaction-title {
+      color: #2563eb;
+      font-weight: 600;
 }
 
-.transaction-item.transfer .transaction-amount{
-color:#2563eb;
+.transaction-item.transfer .transaction-amount {
+      color: #2563eb;
 }
 .transaction-title {
       font-weight: 600;
@@ -149,13 +151,29 @@ color:#2563eb;
 }
 
 .cash {
-      border-left: 8px solid orchid;
-      color: orchid;
+      border-bottom: 8px solid orchid;
+      color: rgb(13, 0, 255);
       font-weight: bold;
+      text-align: center;
 }
 
 .cimb {
-      border-left: 8px solid #dc2626;
-      color: red;
+      border-bottom: 8px solid #dc2626;
+      color: rgb(13, 0, 255);
       font-weight: bold;
+      text-align: center;
+}
+
+.sea {
+      border-bottom: 8px solid #ede738;
+      color: rgb(13, 0, 255);
+      font-weight: bold;
+      text-align: center;
+}
+
+.neo {
+      border-bottom: 8px solid gold;
+      color: rgb(13, 0, 255);
+      font-weight: bold;
+      text-align: center;
 }

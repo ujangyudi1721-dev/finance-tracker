@@ -19,6 +19,8 @@ function renderSummary(data) {
       let totalExpense = 0;
       let totalCash = 0;
       let totalCimb = 0;
+      let totalSea = 0;
+      let totalNeo = 0;
 
       data.forEach((item) => {
             const tipe = item.tipe?.trim().toLowerCase();
@@ -26,15 +28,45 @@ function renderSummary(data) {
 
             if (tipe === "income") totalIncome += jumlah;
             if (tipe === "expense") totalExpense += jumlah;
+            if (tipe === "transfer") {
+                  if (item.transfer_type === "out") totalCash -= jumlah;
+                  if (item.transfer_type === "in") totalCash += jumlah;
+            }
 
             if (item.akun === "cash") {
                   if (tipe === "income") totalCash += jumlah;
                   if (tipe === "expense") totalCash -= jumlah;
+                  if (tipe === "transfer") {
+                        if (item.transfer_type === "out") totalCash -= jumlah;
+                        if (item.transfer_type === "in") totalCash += jumlah;
+                  }
             }
 
             if (item.akun === "cimb") {
                   if (tipe === "income") totalCimb += jumlah;
                   if (tipe === "expense") totalCimb -= jumlah;
+                  if (tipe === "transfer") {
+                        if (item.transfer_type === "out") totalCimb -= jumlah;
+                        if (item.transfer_type === "in") totalCimb += jumlah;
+                  }
+            }
+
+            if (item.akun === "sea") {
+                  if (tipe === "income") totalSea += jumlah;
+                  if (tipe === "expense") totalSea -= jumlah;
+                  if (tipe === "transfer") {
+                        if (item.transfer_type === "out") totalSea -= jumlah;
+                        if (item.transfer_type === "in") totalSea += jumlah;
+                  }
+            }
+
+            if (item.akun === "neo") {
+                  if (tipe === "income") totalNeo += jumlah;
+                  if (tipe === "expense") totalNeo -= jumlah;
+                  if (tipe === "transfer") {
+                        if (item.transfer_type === "out") totalNeo -= jumlah;
+                        if (item.transfer_type === "in") totalNeo += jumlah;
+                  }
             }
       });
 
@@ -54,11 +86,21 @@ function renderSummary(data) {
 
       document.getElementById("totalCimb").innerText =
             "Rp " + totalCimb.toLocaleString("id-ID");
+
+      document.getElementById("totalSea").innerText =
+            "Rp " + totalSea.toLocaleString("id-ID");
+
+      document.getElementById("totalNeo").innerText =
+            "Rp " + totalNeo.toLocaleString("id-ID");
 }
 
 function renderChart(data) {
       let income = 0;
       let expense = 0;
+      let totalCash = 0;
+      let totalCimb = 0;
+      let totalSea = 0;
+      let totalNeo = 0;
 
       data.forEach((item) => {
             const jumlah = Number(item.jumlah) || 0;
@@ -68,6 +110,7 @@ function renderChart(data) {
       });
 
       const ctx = document.getElementById("financeChart");
+      const cth = document.getElementById("chartAkun");
 
       if (window.financeChart instanceof Chart) {
             window.financeChart.destroy();
@@ -80,6 +123,21 @@ function renderChart(data) {
                   datasets: [
                         {
                               data: [income, expense],
+                        },
+                  ],
+            },
+      });
+      
+      if (window.chartAkun instanceof Chart) {
+            window.chartAkun.destroy();
+      }
+      window.chartAkun = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                  labels: ["Cash", "CIMB", "Sea Bank", "Neo Bank"],
+                  datasets: [
+                        {
+                              data: [cash, cimb, neo, sea],
                         },
                   ],
             },

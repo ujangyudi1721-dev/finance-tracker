@@ -38,22 +38,35 @@
 
             <!-- account cash dan bank -->
             <h2>Akun Deposit</h2>
+
             <div class="account">
                   <div class="acount cash">
                         <h3>Saldo Cash</h3>
                         <span id="totalCash">Rp 0</span>
                   </div>
+
                   <div class="acount cimb">
                         <h3>CIMB NIAGA</h3>
                         <span id="totalCimb">Rp 0</span>
                   </div>
-                  <div></div>
+
+                  <div class="acount sea">
+                        <h3>Sea Bank</h3>
+                        <span id="totalSea">Rp 0</span>
+                  </div>
+
+                  <div class="acount neo">
+                        <h3>Neo Bank</h3>
+                        <span id="totalNeo">Rp 0</span>
+                  </div>
             </div>
 
             <!-- canvas grafik -->
             <h2>Grafik Keuangan</h2>
             <div class="chart-container">
+                  <h3>chart transaksi</h3>
                   <canvas id="financeChart"></canvas>
+                  <canvas id="chartAkun"></canvas>
             </div>
 
             <!-- transaction list -->
