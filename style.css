@@ -177,6 +177,10 @@ button {
       font-weight: bold;
       text-align: center;
 }
- .chart-container .income {
-      color: blue
- }
+
+.bri {
+      border-bottom: 8px solid rgb(34, 88, 235);
+      color: rgb(13, 0, 255);
+      font-weight: bold;
+      text-align: center;
+}

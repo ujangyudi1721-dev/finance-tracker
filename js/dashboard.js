@@ -21,6 +21,7 @@ function renderSummary(data) {
       let totalCimb = 0;
       let totalSea = 0;
       let totalNeo = 0;
+      let totalBri = 0;
 
       data.forEach((item) => {
             const tipe = item.tipe?.trim().toLowerCase();
@@ -68,6 +69,14 @@ function renderSummary(data) {
                         if (item.transfer_type === "in") totalNeo += jumlah;
                   }
             }
+            if (item.akun === "bri") {
+                  if (tipe === "income") totalBri += jumlah;
+                  if (tipe === "expense") totalBri -= jumlah;
+                  if (tipe === "transfer") {
+                        if (item.transfer_type === "out") totalBri -= jumlah;
+                        if (item.transfer_type === "in") totalBri += jumlah;
+                  }
+            }
       });
 
       const saldo = totalIncome - totalExpense;
@@ -92,6 +101,9 @@ function renderSummary(data) {
 
       document.getElementById("totalNeo").innerText =
             "Rp " + totalNeo.toLocaleString("id-ID");
+
+      document.getElementById("totalBri").innerText =
+            "Rp " + totalBri.toLocaleString("id-ID");
 }
 
 function renderChart(data) {
@@ -101,6 +113,7 @@ function renderChart(data) {
       let totalCimb = 0;
       let totalSea = 0;
       let totalNeo = 0;
+      let totalBri = 0;
 
       data.forEach((item) => {
             const jumlah = Number(item.jumlah) || 0;
@@ -109,6 +122,7 @@ function renderChart(data) {
             if (item.akun === "cimb") totalCimb += jumlah;
             if (item.akun === "neo") totalNeo += jumlah;
             if (item.akun === "sea") totalSea += jumlah;
+            if (item.akun === "bri") totalBri += jumlah;
       });
 
       const ctx = document.getElementById("financeChart");
@@ -120,16 +134,23 @@ function renderChart(data) {
       window.financeChart = new Chart(ctx, {
             type: "bar",
             data: {
-                  labels: ["Cash", "CIMB", "Neo Bank", "Sea Bank"],
+                  labels: ["Cash", "CIMB", "Neo Bank", "Sea Bank", "Bank BRI"],
                   datasets: [
                         {
                               label: "total",
-                              data: [totalCash, totalCimb, totalNeo, totalSea],
+                              data: [
+                                    totalCash,
+                                    totalCimb,
+                                    totalNeo,
+                                    totalSea,
+                                    totalBri,
+                              ],
                               backgroundColor: [
                                     "orchid",
                                     "#dc2626",
                                     "gold",
                                     "#ede738",
+                                    "rgb(34, 88, 235)",
                               ],
                         },
                   ],
