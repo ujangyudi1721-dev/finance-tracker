@@ -117,14 +117,20 @@ function renderChart(data) {
             window.financeChart.destroy();
       }
 
-      financeChart = new Chart(ctx, {
+      window.financeChart = new Chart(ctx, {
             type: "bar",
             data: {
                   labels: ["Cash", "CIMB", "Neo Bank", "Sea Bank"],
                   datasets: [
                         {
-                              labels: "total",
+                              label: "total",
                               data: [totalCash, totalCimb, totalNeo, totalSea],
+                              backgroundColor: [
+                                    "orchid",
+                                    "#dc2626",
+                                    "gold",
+                                    "#ede738",
+                              ],
                         },
                   ],
             },
