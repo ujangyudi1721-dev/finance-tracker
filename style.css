@@ -77,6 +77,7 @@ button {
 }
 
 .chart-container {
+      align-content: center;
       width: 100%;
       max-width: 600px; /* --- Batas lebar --- */
       height: 300px; /* --- Tinggi tetap --- */

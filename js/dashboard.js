@@ -110,7 +110,6 @@ function renderChart(data) {
       });
 
       const ctx = document.getElementById("financeChart");
-      const cth = document.getElementById("chartAkun");
 
       if (window.financeChart instanceof Chart) {
             window.financeChart.destroy();
@@ -123,21 +122,6 @@ function renderChart(data) {
                   datasets: [
                         {
                               data: [income, expense],
-                        },
-                  ],
-            },
-      });
-      
-      if (window.chartAkun instanceof Chart) {
-            window.chartAkun.destroy();
-      }
-      window.chartAkun = new Chart(ctx, {
-            type: "doughnut",
-            data: {
-                  labels: ["Cash", "CIMB", "Sea Bank", "Neo Bank"],
-                  datasets: [
-                        {
-                              data: [cash, cimb, neo, sea],
                         },
                   ],
             },
