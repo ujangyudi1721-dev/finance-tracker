@@ -105,8 +105,10 @@ function renderChart(data) {
       data.forEach((item) => {
             const jumlah = Number(item.jumlah) || 0;
 
-            if (item.tipe === "income") income += jumlah;
-            if (item.tipe === "expense") expense += jumlah;
+            if (item.akun === "cash") totalCash += jumlah;
+            if (item.akun === "cimb") totalCimb += jumlah;
+            if (item.akun === "neo") totalNeo += jumlah;
+            if (item.akun === "sea") totalSea += jumlah;
       });
 
       const ctx = document.getElementById("financeChart");
@@ -115,13 +117,14 @@ function renderChart(data) {
             window.financeChart.destroy();
       }
 
-      window.financeChart = new Chart(ctx, {
-            type: "doughnut",
+      financeChart = new Chart(ctx, {
+            type: "bar",
             data: {
-                  labels: ["Income", "Expense"],
+                  labels: ["Cash", "CIMB", "Neo Bank", "Sea Bank"],
                   datasets: [
                         {
-                              data: [income, expense],
+                              labels: "total",
+                              data: [totalCash, totalCimb, totalNeo, totalSea],
                         },
                   ],
             },
