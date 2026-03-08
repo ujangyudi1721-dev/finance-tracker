@@ -49,7 +49,18 @@ button {
       gap: 20px;
       margin: 20px 0;
 }
+.loans {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+}
 
+loan {
+      flex: 1;
+      padding: 20px;
+      border-radius: 25px;
+      font-weight: bold;
+}
 .card {
       flex: 1;
       padding: 20px;
@@ -186,6 +197,39 @@ button {
 .bri {
       border-bottom: 8px solid rgb(34, 88, 235);
       color: rgb(13, 0, 255);
+      font-weight: bold;
+      text-align: center;
+}
+
+.spay {
+      border-bottom: 8px solid rgb(235, 47, 34);
+      color: rgb(179, 255, 0);
+      font-weight: bold;
+      text-align: center;
+}
+
+.spin {
+      border-bottom: 8px solid rgb(235, 47, 34);
+      color: rgb(179, 255, 0);
+      font-weight: bold;
+      text-align: center;
+}
+
+.kes {
+      border-bottom: 8px solid rgb(235, 47, 34);
+      color: rgb(179, 255, 0);
+      font-weight: bold;
+      text-align: center;
+}
+.daffa {
+      border-bottom: 8px solid rgb(235, 47, 34);
+      color: rgb(179, 255, 0);
+      font-weight: bold;
+      text-align: center;
+}
+.kul {
+      border-bottom: 8px solid rgb(235, 47, 34);
+      color: rgb(179, 255, 0);
       font-weight: bold;
       text-align: center;
 }
