@@ -2,6 +2,18 @@ let editId = null;
 // --- struktur kode input ---
 document.addEventListener("DOMContentLoaded", init);
 
+const DOM = {
+      form: document.getElementById("formKeuangan"),
+      tanggal: document.getElementById("tanggal"),
+      tipe: document.getElementById("tipe"),
+      kategori: document.getElementById("kategori"),
+      jumlah: document.getElementById("jumlah"),
+      keterangan: document.getElementById("keterangan"),
+      akun: document.getElementById("akun"),
+      transferField: document.getElementById("transferField"),
+      btnSimpan: document.getElementById("btnSimpan"),
+      btnUpdate: document.getElementById("btnUpdate"),
+};
 // --- fungsi init ---
 async function init() {
       setupMode();
@@ -17,14 +29,14 @@ async function setupMode() {
       const btnSimpan = document.getElementById("btnSimpan");
       const btnUpdate = document.getElementById("btnUpdate");
 
-      btnUpdate.style.display = "none";
+      DOM.btnUpdate.style.display = "none";
 
       if (!id) return;
 
       editId = id;
 
-      btnSimpan.style.display = "none";
-      btnUpdate.style.display = "inline-block";
+      DOM.btnSimpan.style.display = "none";
+      DOM.btnUpdate.style.display = "inline-block";
 
       await loadEditData(id);
 }
@@ -42,20 +54,17 @@ async function loadEditData(id) {
             return;
       }
 
-      document.getElementById("tanggal").value = data.tanggal;
-      document.getElementById("tipe").value = data.tipe;
-      document.getElementById("kategori").value = data.kategori;
-      document.getElementById("jumlah").value = data.jumlah;
-      document.getElementById("keterangan").value = data.keterangan;
-      document.getElementById("akun").value = data.akun;
+      DOM.tanggal.value = data.tanggal;
+      DOM.tipe.value = data.tipe;
+      DOM.kategori.value = data.kategori;
+      DOM.jumlah.value = data.jumlah;
+      DOM.keterangan.value = data.keterangan;
+      DOM.akun.value = data.akun;
 }
 
 // --- UI transfer (ternary refactor) ---
 function setupTransferUI() {
-      const tipe = document.getElementById("tipe");
-      const transferField = document.getElementById("transferField");
-
-      tipe.addEventListener("change", () => {
+      DOM.tipe.addEventListener("change", () => {
             transferField.style.display =
                   tipe.value === "transfer" ? "block" : "none";
       });
@@ -64,12 +73,12 @@ function setupTransferUI() {
 // --- Ambil Data Form ---
 function getFormData() {
       return {
-            tanggal: document.getElementById("tanggal").value,
-            tipe: document.getElementById("tipe").value,
-            kategori: document.getElementById("kategori").value,
-            jumlah: Number(document.getElementById("jumlah").value),
-            keterangan: document.getElementById("keterangan").value,
-            akun: document.getElementById("akun").value,
+            tanggal: DOM.tanggal.value,
+            tipe: DOM.tipe.value,
+            kategori: DOM.kategori.value,
+            jumlah: Number(DOM.jumlah.value),
+            keterangan: DOM.keterangan.value,
+            akun: DOM.akun.value,
       };
       console.log("getFormData jalan");
 }
@@ -77,9 +86,7 @@ const data = getFormData();
 
 // --- form submit ---
 function setupFormSubmit() {
-      const form = document.getElementById("formKeuangan");
-
-      form.addEventListener("submit", async (e) => {
+      DOM.form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             console.log("FORM SUBMIT BERJALAN");
@@ -99,8 +106,7 @@ function setupFormSubmit() {
             console.log(data); // untuk cek apakah jalan
       });
 }
-
-// --- fungsi create transaksi ---
+// --- Create Transaction ---
 async function createTransaction(data) {
       const { error } = await supabaseClient
             .from("transactions")
@@ -111,6 +117,38 @@ async function createTransaction(data) {
             alert("Gagal menyimpan data");
             return;
       }
+
       alert("Data berhasil disimpan");
-      window.location = "index.html";
+      window.location.href = "index.html";
+}
+
+// --- edit transaksi ---
+async function updateTransaction(data) {
+
+      const { error } = await supabaseClient
+            .from("transactions")
+            .update(data)
+            .eq("id", editId);
+
+      if (error) {
+            console.error(error);
+            alert("Gagal update data");
+            return;
+      }
+
+      alert("Data berhasil diupdate");
+
+      window.location.href = "index.html";
+}
+
+// --- fungsi create transaksi ---
+async function saveTransaction(data) {
+      if (editId) {
+            return supabaseClient
+                  .from("transaction")
+                  .update(data)
+                  .eq("id", editId);
+      }
+      return supabaseClient.from("transactions").insert([data]);
+      await saveTransaction(data);
 }
