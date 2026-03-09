@@ -102,7 +102,9 @@ function setupFormSubmit() {
 
 // --- fungsi create transaksi ---
 async function createTransaction(data) {
-      const { error } = await supabaseClient.from("transactions").insert([data]);
+      const { error } = await supabaseClient
+            .from("transactions")
+            .insert([data]);
 
       if (error) {
             console.error(error);
