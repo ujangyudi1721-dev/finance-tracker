@@ -15,7 +15,7 @@ async function setupMode() {
       const id = params.get("id");
 
       const btnSimpan = document.getElementById("btnSimpan");
-      const btnUpdate = document.getElementById("btnUpdate");
+      const btnUpdate = document.getElementById("btnEdit");
 
       btnUpdate.style.display = "none";
 
@@ -51,7 +51,8 @@ async function loadEditData(id) {
 }
 
 // --- UI transfer (ternary refactor) ---
-function setupTransferUI() {
+function setupTransferUI () {
+
       const tipe = document.getElementById("tipe");
       const transferField = document.getElementById("transferField");
 
@@ -62,53 +63,14 @@ function setupTransferUI() {
 }
 
 // --- Ambil Data Form ---
-function getFormData() {
+function getFormDAta() {
       return {
             tanggal: document.getElementById("tanggal").value,
             tipe: document.getElementById("tipe").value,
             kategori: document.getElementById("kategori").value,
-            jumlah: Number(document.getElementById("jumlah").value),
+            jumlah: document.getElementById("jumlah").value,
             keterangan: document.getElementById("keterangan").value,
             akun: document.getElementById("akun").value,
       };
-      console.log("getFormData jalan");
 }
 const data = getFormData();
-
-// --- form submit ---
-function setupFormSubmit() {
-      const form = document.getElementById("formKeuangan");
-
-      form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            console.log("FORM SUBMIT BERJALAN");
-
-            const data = getFormData();
-
-            if (data.tipe === "transfer") {
-                  await handleTransfer(data);
-                  return;
-            }
-
-            if (editId) {
-                  await updateTransaction(data);
-            } else {
-                  await createTransaction(data);
-            }
-            console.log(data); // untuk cek apakah jalan
-      });
-}
-
-// --- fungsi create transaksi ---
-async function createTransaction(data) {
-      const { error } = await supabaseClient.from("transactions").insert([data]);
-
-      if (error) {
-            console.error(error);
-            alert("Gagal menyimpan data");
-            return;
-      }
-      alert("Data berhasil disimpan");
-      window.location = "index.html";
-}
