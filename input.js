@@ -26,9 +26,6 @@ async function setupMode() {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
 
-      const btnSimpan = document.getElementById("btnSimpan");
-      const btnUpdate = document.getElementById("btnUpdate");
-
       DOM.btnUpdate.style.display = "none";
 
       if (!id) return;
@@ -65,14 +62,14 @@ async function loadEditData(id) {
 // --- UI transfer (ternary refactor) ---
 function setupTransferUI() {
       DOM.tipe.addEventListener("change", () => {
-            transferField.style.display =
-                  tipe.value === "transfer" ? "block" : "none";
+            DOM.transferField.style.display =
+                  DOM.tipe.value === "transfer" ? "block" : "none";
       });
 }
 
 // --- Ambil Data Form ---
 function getFormData() {
-      return {
+      const data = {
             tanggal: DOM.tanggal.value,
             tipe: DOM.tipe.value,
             kategori: DOM.kategori.value,
@@ -81,15 +78,13 @@ function getFormData() {
             akun: DOM.akun.value,
       };
       console.log("getFormData jalan");
+      return data;
 }
-const data = getFormData();
 
 // --- form submit ---
 function setupFormSubmit() {
       DOM.form.addEventListener("submit", async (e) => {
             e.preventDefault();
-
-            console.log("FORM SUBMIT BERJALAN");
 
             const data = getFormData();
 
@@ -98,57 +93,20 @@ function setupFormSubmit() {
                   return;
             }
 
-            if (editId) {
-                  await updateTransaction(data);
-            } else {
-                  await createTransaction(data);
-            }
-            console.log(data); // untuk cek apakah jalan
+            await saveTransaction(data);
+
+            alert("Data berhasil disimpan");
+            window.location.href = "index.html";
       });
-}
-// --- Create Transaction ---
-async function createTransaction(data) {
-      const { error } = await supabaseClient
-            .from("transactions")
-            .insert([data]);
-
-      if (error) {
-            console.error(error);
-            alert("Gagal menyimpan data");
-            return;
-      }
-
-      alert("Data berhasil disimpan");
-      window.location.href = "index.html";
-}
-
-// --- edit transaksi ---
-async function updateTransaction(data) {
-
-      const { error } = await supabaseClient
-            .from("transactions")
-            .update(data)
-            .eq("id", editId);
-
-      if (error) {
-            console.error(error);
-            alert("Gagal update data");
-            return;
-      }
-
-      alert("Data berhasil diupdate");
-
-      window.location.href = "index.html";
 }
 
 // --- fungsi create transaksi ---
 async function saveTransaction(data) {
       if (editId) {
             return supabaseClient
-                  .from("transaction")
+                  .from("transactions")
                   .update(data)
                   .eq("id", editId);
       }
       return supabaseClient.from("transactions").insert([data]);
-      await saveTransaction(data);
 }
