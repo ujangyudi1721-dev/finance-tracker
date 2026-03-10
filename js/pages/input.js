@@ -1,4 +1,7 @@
-import { supabase } from "./config/supabaseClient.js";
+import { createTransaction, updateTransaction } from "../services/transactionService.js";
+import { createTransfer } from "../services/transferService.js";
+import { supabase } from "../config/supabaseClient.js";
+
 let editId = null;
 // --- struktur kode input ---
 document.addEventListener("DOMContentLoaded", init);
@@ -17,9 +20,23 @@ const DOM = {
 };
 // --- fungsi init ---
 async function init() {
+
+      console.log("INPUT PAGE LOADED");
+
       setupMode();
       setupTransferUI();
       setupFormSubmit();
+
+}
+
+// --- setup transfer ---
+function setupTransferUI() {
+
+      DOM.tipe.addEventListener("change", () => {
+
+            DOM.transferField.style.display =
+                  DOM.tipe.value === "transfer" ? "block" : "none";
+      });
 }
 
 // --- Mode EDIT ---
@@ -52,20 +69,14 @@ async function loadEditData(id) {
             return;
       }
 
+      console.log("EDIT DATA: ", data);
+
       DOM.tanggal.value = data.tanggal;
       DOM.tipe.value = data.tipe;
       DOM.kategori.value = data.kategori;
-      DOM.jumlah.valueOf = data.jumlah;
+      DOM.jumlah.value = data.jumlah;
       DOM.keterangan.value = data.keterangan;
       DOM.akun.value = data.akun;
-}
-
-// --- UI transfer (ternary refactor) ---
-function setupTransferUI() {
-      DOM.tipe.addEventListener("change", () => {
-            DOM.transferField.style.display =
-                  DOM.tipe.value === "transfer" ? "block" : "none";
-      });
 }
 
 // --- Ambil Data Form ---
@@ -74,10 +85,12 @@ function getFormData() {
             tanggal: DOM.tanggal.value,
             tipe: DOM.tipe.value,
             kategori: DOM.kategori.value,
-            jumlah: DOM.jumlah.value,
+            jumlah: Number(DOM.jumlah.value),
             keterangan: DOM.keterangan.value,
             akun: DOM.akun.value,
+
       };
+
       console.log("getFormData jalan");
       return data;
 }
@@ -90,50 +103,25 @@ function setupFormSubmit() {
             const data = getFormData();
 
             if (data.tipe === "transfer") {
-                  await handleTransfer(data);
+
+                  const tujuanAkun = document.getElementById("tujuanAkun").value;
+                  await createTransfer(data, tujuanAkun);
+                  alert("Transfer berhasil");
+                  window.location.href = "index.html";
                   return;
             }
 
-            await saveTransaction(data);
+            if (editId) {
 
-            alert("Data berhasil disimpan");
+                  await updateTransaction(editId, data);
+                  alert("Transaksi berhasil diupdate");
+
+            } else {
+                  await createTransaction(data);
+                  alert("Transaksi berhasil disimpan");
+            }
+
             window.location.href = "index.html";
+      
       });
-}
-
-// --- fungsi create transaksi ---
-async function saveTransaction(data) {
-      console.log("SAVE DATA", data);
-      //const { error } = await supabase.from("transactions").insert([data]);
-      if (editId) {
-            return supabase.from("transactions").update(data).eq("id", editId);
-      }
-      return supabase.from("transactions").insert([data]);
-}
-
-async function handleTransfer(data) {
-      console.log("TRANSFER DATA:", data);
-
-      const dari = data.akun;
-      const ke = document.getElementById("tujuanAkun").value;
-
-      const keluar = {
-            ...data,
-            tipe: "expense",
-            akun: dari,
-      };
-
-      const masuk = {
-            ...data,
-            tipe: "income",
-            akun: ke,
-      };
-
-      console.log("TRANSFER KELUAR:", keluar);
-      console.log("TRANSFER MASUK:", masuk);
-
-      await supabase.from("transactions").insert([keluar]);
-      await supabase.from("transactions").insert([masuk]);
-
-      alert("Transfer berhasil");
 }
