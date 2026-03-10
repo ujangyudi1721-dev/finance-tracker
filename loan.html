@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loan Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+  <a href="index.html">Dashboard</a>
+  <a href="input.html">Transaksi</a>
+  <a href="loan-input.html">Input Loan</a>
+</nav>
+
+<h2>Loan List</h2>
+
+<!-- daftar loan -->
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Nama Loan</th>
+      <th>Total Pinjaman</th>
+      <th>Tenor</th>
+      <th>Cicilan / Bulan</th>
+    </tr>
+  </thead>
+
+  <tbody id="loanTable">
+
+  </tbody>
+
+</table>
+
+<br><br>
+
+<h2>Tabel Cicilan</h2>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Cicilan Ke</th>
+      <th>Jumlah</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody id="installmentTable">
+
+  </tbody>
+
+</table>
+
+<!-- Supabase -->
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<!-- Chart jika dibutuhkan -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- JS -->
+<script type="module" src="js/loan.js"></script>
+
+</body>
+</html>

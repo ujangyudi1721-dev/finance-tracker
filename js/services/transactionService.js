@@ -1,5 +1,6 @@
+import { supabase } from "../config/supabaseClient.js";
 export async function getTransactions(limit = null) {
-      let query = supabaseClient
+      let query = supabase
             .from("transactions")
             .select("*")
             .order("id", { ascending: false });
@@ -19,7 +20,7 @@ export async function getTransactions(limit = null) {
 }
 
 export async function deleteTransaction(id) {
-      const { error } = await supabaseClient
+      const { error } = await supabase
             .from("transactions")
             .delete()
             .eq("id", id);

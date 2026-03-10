@@ -1,3 +1,4 @@
+import { supabase } from "./config/supabaseClient.js";
 let editId = null;
 // --- struktur kode input ---
 document.addEventListener("DOMContentLoaded", init);
@@ -40,7 +41,7 @@ async function setupMode() {
 
 // --- fungsi Load Edit Data ---
 async function loadEditData(id) {
-      const { data, error } = await supabaseClient
+      const { data, error } = await supabase
             .from("transactions")
             .select("*")
             .eq("id", id)
@@ -54,7 +55,7 @@ async function loadEditData(id) {
       DOM.tanggal.value = data.tanggal;
       DOM.tipe.value = data.tipe;
       DOM.kategori.value = data.kategori;
-      DOM.jumlah.value = data.jumlah;
+      DOM.jumlah.valueOf = data.jumlah;
       DOM.keterangan.value = data.keterangan;
       DOM.akun.value = data.akun;
 }
@@ -73,7 +74,7 @@ function getFormData() {
             tanggal: DOM.tanggal.value,
             tipe: DOM.tipe.value,
             kategori: DOM.kategori.value,
-            jumlah: Number(DOM.jumlah.value),
+            jumlah: DOM.jumlah.value,
             keterangan: DOM.keterangan.value,
             akun: DOM.akun.value,
       };
@@ -102,11 +103,37 @@ function setupFormSubmit() {
 
 // --- fungsi create transaksi ---
 async function saveTransaction(data) {
+      console.log("SAVE DATA", data);
+      //const { error } = await supabase.from("transactions").insert([data]);
       if (editId) {
-            return supabaseClient
-                  .from("transactions")
-                  .update(data)
-                  .eq("id", editId);
+            return supabase.from("transactions").update(data).eq("id", editId);
       }
-      return supabaseClient.from("transactions").insert([data]);
+      return supabase.from("transactions").insert([data]);
+}
+
+async function handleTransfer(data) {
+      console.log("TRANSFER DATA:", data);
+
+      const dari = data.akun;
+      const ke = document.getElementById("tujuanAkun").value;
+
+      const keluar = {
+            ...data,
+            tipe: "expense",
+            akun: dari,
+      };
+
+      const masuk = {
+            ...data,
+            tipe: "income",
+            akun: ke,
+      };
+
+      console.log("TRANSFER KELUAR:", keluar);
+      console.log("TRANSFER MASUK:", masuk);
+
+      await supabase.from("transactions").insert([keluar]);
+      await supabase.from("transactions").insert([masuk]);
+
+      alert("Transfer berhasil");
 }

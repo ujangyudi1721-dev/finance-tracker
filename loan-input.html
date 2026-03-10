@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Input Loan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Dashboard</a>
+  <a href="input.html">Transaksi</a>
+  <a href="loan.html">Loan</a>
+</nav>
+
+<h2>Input Loan</h2>
+
+<form id="loanForm">
+
+  <label>Nama Loan</label><br>
+  <input type="text" id="namaLoan" required><br><br>
+
+  <label>Total Pinjaman</label><br>
+  <input type="number" id="totalLoan" required><br><br>
+
+  <label>Tenor (bulan)</label><br>
+  <input type="number" id="tenor" required><br><br>
+
+  <button type="submit">Simpan Loan</button>
+
+</form>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+<script type="module" src="js/loanInput.js"></script>
+
+
+</body>
+</html>
