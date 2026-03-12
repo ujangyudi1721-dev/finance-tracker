@@ -65,10 +65,22 @@ export async function payInstallment(installment) {
                   akun: "cash",
                   keterangan: "Bayar cicilan",
             },
+            
       ]);
+
 
       await supabase
             .from("loan_installments")
             .update({ status: "paid" })
             .eq("id", installment.id);
+
+      /*await supabase.from("transactions").insert([
+      {
+            tanggal: installment.tanggal,
+            tipe: "expense",
+            kategori: "loan",
+            jumlah: installment.jumlah,
+            akun: "cash",
+      },
+]);*/
 }
