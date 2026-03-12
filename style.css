@@ -253,3 +253,11 @@ loan {
       background: green;
       border-radius: 10px;
 }
+
+.hutang {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      color: red;
+}
