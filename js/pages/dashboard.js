@@ -24,7 +24,7 @@ async function init() {
       renderSummary(finance);
       renderChart(finance);
 
-      document.getElementById("totalLoan").textContent = summary.totalLoan;
+     // document.getElementById("totalLoan").textContent = summary.totalLoan;
 
       document.getElementById("remainingLoan").textContent = summary.remaining;
 }
