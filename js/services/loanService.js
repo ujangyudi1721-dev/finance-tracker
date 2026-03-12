@@ -1,40 +1,74 @@
 import { supabase } from "../config/supabaseClient.js";
+import {
+      calculateInstallment,
+      generateInstallments,
+} from "../engine/loanEngine.js";
 
-export async function createLoan(loanData) {
+export async function createLoan(loan) {
+      const cicilan = calculateInstallment(loan.total_loan, loan.tenor);
 
-  console.log("CREATE LOAN:", loanData);
+      const { data, error } = await supabase
+            .from("loans")
+            .insert([
+                  {
+                        nama: loan.nama,
+                        total_loan: loan.total_loan,
+                        tenor: loan.tenor,
+                        cicilan_per_bulan: cicilan,
+                  },
+            ])
+            .select()
+            .single();
 
-  const { data, error } = await supabase
-    .from("loans")
-    .insert([loanData])
-    .select()
-    .single();
+      if (error) {
+            console.error(error);
+            return;
+      }
 
-  if (error) {
-    console.error("CREATE LOAN ERROR:", error);
-    return null;
-  }
+      const installments = generateInstallments(data.id, cicilan, loan.tenor);
 
-  console.log("LOAN CREATED:", data);
+      await supabase.from("loan_installments").insert(installments);
 
-  return data;
+      return data;
 }
 
+export async function getLoans() {
+      const { data, error } = await supabase.from("loans").select(`
+        id,
+        nama,
+        total_loan,
+        tenor,
+        cicilan_per_bulan,
+        loan_installments(
+            id,
+            jumlah,
+            tanggal,
+            status
+        )
+    `);
 
-export async function createInstallments(installments) {
+      if (error) {
+            console.error(error);
+            return [];
+      }
 
-  console.log("CREATE INSTALLMENTS:", installments);
+      return data;
+}
 
-  const { data, error } = await supabase
-    .from("loan_installments")
-    .insert(installments);
+export async function payInstallment(installment) {
+      await supabase.from("transactions").insert([
+            {
+                  tanggal: installment.tanggal,
+                  tipe: "expense",
+                  kategori: "loan",
+                  jumlah: installment.jumlah,
+                  akun: "cash",
+                  keterangan: "Bayar cicilan",
+            },
+      ]);
 
-  if (error) {
-    console.error("INSTALLMENT ERROR:", error);
-    return null;
-  }
-
-  console.log("INSTALLMENTS CREATED:", data);
-
-  return data;
+      await supabase
+            .from("loan_installments")
+            .update({ status: "paid" })
+            .eq("id", installment.id);
 }

@@ -3,7 +3,6 @@ import { ACCOUNT_CONFIG } from "../config/accountConfig.js";
 
 // --- export fungsi proses transaksi ---
 export function processTransactions(data) {
-
       console.log("ENGINE DATA: ", data);
 
       const accounts = {};
@@ -16,31 +15,26 @@ export function processTransactions(data) {
       let totalExpense = 0;
 
       data.forEach((tx) => {
-
             const tipe = tx.tipe?.toLowerCase();
             const akun = tx.akun?.toLowerCase();
             const jumlah = Number(tx.jumlah) || 0;
-            
+
             console.log("PROCES TX: ", tipe, akun, jumlah);
 
             if (tipe === "income") {
                   totalIncome += jumlah;
 
-                  if (accounts[akun] !== undefined)
-                         accounts[akun] += jumlah;
+                  if (accounts[akun] !== undefined) accounts[akun] += jumlah;
             }
 
             if (tipe === "expense") {
                   totalExpense += jumlah;
 
-                  if (accounts[akun] !== undefined)
-                        accounts[akun] += jumlah;
+                  if (accounts[akun] !== undefined) accounts[akun] -= jumlah;
             }
 
             if (tipe === "transfer") {
-
-                  if (accounts[akun] !== undefined)
-                        accounts[akun] += jumlah;
+                  if (accounts[akun] !== undefined) accounts[akun] += jumlah;
             }
       });
 

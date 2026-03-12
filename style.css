@@ -233,3 +233,23 @@ loan {
       font-weight: bold;
       text-align: center;
 }
+
+.loan-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+}
+
+.progress {
+      height: 10px;
+      background: #eee;
+      border-radius: 10px;
+      margin: 10px 0;
+}
+
+.progress-bar {
+      height: 100%;
+      background: green;
+      border-radius: 10px;
+}

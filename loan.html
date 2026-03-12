@@ -1,65 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Loan Manager</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+      <head>
+            <title>Loan Manager</title>
+            <link rel="stylesheet" href="style.css" />
+      </head>
 
-<body>
+      <body>
+            <!-- Navbar -->
+            <nav>
+                  <a href="index.html">Dashboard</a>
+                  <a href="input.html">Transaksi</a>
+                  <a href="loan-input.html">Input Loan</a>
+            </nav>
 
-<!-- Navbar -->
-<nav>
-  <a href="index.html">Dashboard</a>
-  <a href="input.html">Transaksi</a>
-  <a href="loan-input.html">Input Loan</a>
-</nav>
+            <h2>Loan List</h2>
 
-<h2>Loan List</h2>
+            <!-- daftar loan -->
+            <table border="1" width="100%">
+                  <thead>
+                        <tr>
+                              <th>Nama Loan</th>
+                              <th>Total Pinjaman</th>
+                              <th>Tenor</th>
+                              <th>Cicilan / Bulan</th>
+                        </tr>
+                  </thead>
 
-<!-- daftar loan -->
-<table border="1" width="100%">
-  <thead>
-    <tr>
-      <th>Nama Loan</th>
-      <th>Total Pinjaman</th>
-      <th>Tenor</th>
-      <th>Cicilan / Bulan</th>
-    </tr>
-  </thead>
+                  <tbody id="loanTable"></tbody>
+            </table>
 
-  <tbody id="loanTable">
+            <br /><br />
 
-  </tbody>
+            <h2>Tabel Cicilan</h2>
 
-</table>
+            <table border="1" width="100%">
+                  <thead>
+                        <tr>
+                              <th>Cicilan Ke</th>
+                              <th>Jumlah</th>
+                              <th>Status</th>
+                        </tr>
+                  </thead>
 
-<br><br>
+                  <tbody id="installmentTable"></tbody>
+            </table>
 
-<h2>Tabel Cicilan</h2>
+            <!-- Supabase -->
+            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
-<table border="1" width="100%">
-  <thead>
-    <tr>
-      <th>Cicilan Ke</th>
-      <th>Jumlah</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+            <!-- Chart jika dibutuhkan -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <tbody id="installmentTable">
-
-  </tbody>
-
-</table>
-
-<!-- Supabase -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
-<!-- Chart jika dibutuhkan -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- JS -->
-<script type="module" src="js/loan.js"></script>
-
-</body>
+            <!-- JS -->
+            <script type="module" src="./js/pages/loan.js"></script>
+      </body>
 </html>
