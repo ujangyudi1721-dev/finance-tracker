@@ -88,9 +88,28 @@
                   <canvas id="financeChart"></canvas>
             </div>
 
+            
+            <h2>Loan List</h2>
+
+            <!-- daftar loan -->
+            <table border="1" width="100%">
+                  <thead>
+                        <tr>
+                              <th>Nama Loan</th>
+                              <th>Total Pinjaman</th>
+                              <th>Tenor</th>
+                              <th>Cicilan / Bulan</th>
+                              <th>Sisa Hutang</th>
+                        </tr>
+                  </thead>
+
+                  <tbody id="loanTable"></tbody>
+            </table>
+
             <!-- script js-->
             <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script type="module" src="js/pages/dashboard.js"></script>
+            <script type="module" src="./js/pages/loan.js"></script>
       </body>
 </html>
