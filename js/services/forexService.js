@@ -28,6 +28,7 @@ export async function createForex(forex) {
             lot: forex.lot,
             aktual: forex.aktual,
             keterangan: forex.keterangan,
+            saldo: saldo
                   },
             ]);
 

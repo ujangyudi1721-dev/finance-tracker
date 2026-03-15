@@ -4,6 +4,8 @@ import { renderSummary } from "../dashboard/renderSummary.js";
 import { renderChart } from "../dashboard/renderChart.js";
 import { getLoans } from "../services/loanService.js";
 import { calculateLoanSummary } from "../engine/loanEngine.js";
+import { renderForexChart } from "../dashboard/renderForexChart.js";
+import { supabase } from "../config/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -28,3 +30,22 @@ async function init() {
 
       document.getElementById("remainingLoan").textContent = summary.remaining;
 }
+
+async function loadForexChart() {
+      
+      const {data, error } = await supabase
+      .from("forex")
+      .select("tanggal, saldo")
+      .order("tanggal", {ascending: true})
+
+      if (error){
+            console.error(error);
+            return
+      }
+
+      console.log("DATA FOREX: ", data)
+
+      renderForexChart(data);
+}
+
+loadForexChart();
