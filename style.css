@@ -32,7 +32,7 @@ nav a {
       font-weight: bold;
 }
 
-button {
+.button {
       margin-left: 10px;
       padding: 4px 8px;
       border: none;
@@ -55,7 +55,7 @@ button {
       margin: 20px 0;
 }
 
-loan {
+.loan {
       flex: 1;
       padding: 20px;
       border-radius: 25px;
@@ -101,7 +101,7 @@ loan {
 
 .forex-container {
       width: 100%;
-      max-width: 1000px; /* --- Batas lebar --- */
+      max-width: 1020px; /* --- Batas lebar --- */
       height: 300px; /* --- Tinggi tetap --- */
       margin: 20px auto; /* --- Tengah --- */
 }
@@ -148,6 +148,9 @@ loan {
       margin-bottom: 6px;
 }
 
+canvas#forexChart {
+      width: 200%;
+}
 .transaction-actions button {
       margin-left: 6px;
       padding: 4px 8px;

@@ -27,6 +27,7 @@ export async function createForex(forex) {
             t_profit: profit,
             lot: forex.lot,
             aktual: forex.aktual,
+            exit: forex.exit,
             keterangan: forex.keterangan,
             saldo: saldo
                   },

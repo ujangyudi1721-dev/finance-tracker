@@ -17,12 +17,7 @@
             <h1>Input Forex</h1>
             <form id="inputForex">
                   <input type="date" id="tanggal" placeholder="Tanggal" />
-                  <select name="" id="tipe_open">
-                        <option value="buy">Buy</option>
-                        <option value="sell">Sell</option>
-                        <option value="deposit">Deposit</option>
-                        <option value="withdraw">Withdraw</option>
-                  </select>
+
                   <select name="" id="pair">
                         
                         <option value="xau">XAU-USD</option>
@@ -33,8 +28,24 @@
                         <option value="deposit">Deposit</option>
                         <option value="withdraw">Withdraw</option>
                   </select>
+
+                  <select name="" id="tipe_open">
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                        <option value="deposit">Deposit</option>
+                        <option value="withdraw">Withdraw</option>
+                  </select>
+                  
                   <input type="text" name="" id="lot" placeholder="Lot"/>
                   <input type="text" id="aktual" placeholder="Aktual" />
+
+                  <select name="" id="exit">
+                        <option value="SL">Stop loss</option>
+                        <option value="TP">Take Profit</option>
+                        <option value="CL">Cut Loss</option>
+                        <option value="CP">Cut Profit</option>
+                  </select>
+
                   <input type="text" id="keterangan" placeholder="Keterangan">
                   <button type="submit">Simpan</button>
                   <li></li>
@@ -58,6 +69,8 @@
                               <th>Target Loss</th>
                               <th>Target profit</th>
                               <th>Aktual</th>
+                              <th>Exit</th>
+                              <th>Saldo</th>
                               <th>Keterangan</th>
                         </tr>
                   </thead>

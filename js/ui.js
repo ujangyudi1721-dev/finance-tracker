@@ -78,6 +78,8 @@ export function renderHistoryForex(data) {
                   <td>${item.t_loss}</td>
                   <td>${item.t_profit}</td>
                   <td>${item.aktual}</td>
+                  <td>${item.exit}</td>
+                  <td>${item.saldo}</td>
                   <td>${item.keterangan}</td>
                   `;
                   fTable.appendChild(tr);

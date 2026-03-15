@@ -14,6 +14,7 @@ if (form) {
             pair: document.getElementById("pair").value,
             lot: document.getElementById("lot").value,
             aktual: Number(document.getElementById("aktual").value),
+            exit: document.getElementById("exit").value,
             keterangan: document.getElementById("keterangan").value,
         };
 
