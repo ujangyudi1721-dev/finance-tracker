@@ -1,4 +1,7 @@
-import { createTransaction, updateTransaction } from "../services/transactionService.js";
+import {
+      createTransaction,
+      updateTransaction,
+} from "../services/transactionService.js";
 import { createTransfer } from "../services/transferService.js";
 import { supabase } from "../config/supabaseClient.js";
 
@@ -20,20 +23,16 @@ const DOM = {
 };
 // --- fungsi init ---
 async function init() {
-
       console.log("INPUT PAGE LOADED");
 
       setupMode();
       setupTransferUI();
       setupFormSubmit();
-
 }
 
 // --- setup transfer ---
 function setupTransferUI() {
-
       DOM.tipe.addEventListener("change", () => {
-
             DOM.transferField.style.display =
                   DOM.tipe.value === "transfer" ? "block" : "none";
       });
@@ -88,7 +87,6 @@ function getFormData() {
             jumlah: Number(DOM.jumlah.value),
             keterangan: DOM.keterangan.value,
             akun: DOM.akun.value,
-
       };
 
       console.log("getFormData jalan");
@@ -103,8 +101,8 @@ function setupFormSubmit() {
             const data = getFormData();
 
             if (data.tipe === "transfer") {
-
-                  const tujuanAkun = document.getElementById("tujuanAkun").value;
+                  const tujuanAkun =
+                        document.getElementById("tujuanAkun").value;
                   await createTransfer(data, tujuanAkun);
                   alert("Transfer berhasil");
                   window.location.href = "index.html";
@@ -112,16 +110,13 @@ function setupFormSubmit() {
             }
 
             if (editId) {
-
                   await updateTransaction(editId, data);
                   alert("Transaksi berhasil diupdate");
-
             } else {
                   await createTransaction(data);
                   alert("Transaksi berhasil disimpan");
             }
 
             window.location.href = "index.html";
-      
       });
 }

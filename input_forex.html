@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+      <head>
+            <meta charset="UTF-8" />
+            <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+            />
+            <title>Jurnal</title>
+            <link rel="stylesheet" href="style.css" />
+      </head>
+      <body>
+            <nav>
+                  <a href="index.html">dashboard</a>
+                  <a href="riwayat_forex.html">Riwayat forex</a>
+            </nav>
+
+            <h1>Input Forex</h1>
+            <form id="inputForex">
+                  <input type="date" id="tanggal" placeholder="Tanggal" />
+                  <select name="" id="tipe_open">
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                  </select>
+                  <select name="" id="pair">
+                        <option value="xau">XAU-USD</option>
+                        <option value="jpy">USD-JPY</option>
+                        <option value="eur">EUR-USD</option>
+                        <option value="gj">GBP-JPY</option>
+                  </select>
+                  <input type="text" name="" id="lot" placeholder="Lot"/>
+                  <input type="text" id="aktual" placeholder="Aktual" />
+                  <input type="text" id="keterangan" placeholder="Keterangan">
+                  <button type="submit">Simpan</button>
+            </form>
+
+            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+            <script type="module" src="js/pages/forexInput.js"></script>
+      </body>
+</html>

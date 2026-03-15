@@ -9,7 +9,7 @@ export function renderLoanTable(loans) {
             ).length;
             const paidAmount = paid * loan.cicilan_per_bulan;
 
-            const remaining = loan.total_loan - paidAmount;
+            //const remaining = loan.total_loan - paidAmount;
             const progress = Math.round((paid / loan.tenor) * 100);
             const row = document.createElement("tr");
 

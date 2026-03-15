@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat forex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+     <!-- Nav bar -->
+            <nav>
+                  <a href="index.html">Dashboard</a>
+                  <a href="input_forex.html">Jurnal Forex</a>
+            </nav>
+
+            <h1>Riwayat Transaksi</h1>
+
+            <!-- tampilan u/ statistik diatas tabel riwayat -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px">
+                  <div>
+                        <strong>Total Saldo</strong><br />
+                        <span id="statSaldo">0</span>
+                  </div>
+
+                  <div>
+                        <strong>Target Loss</strong><br />
+                        <span id="statLoss">0</span>
+                  </div>
+
+                  <div>
+                        <strong>Target profit</strong><br />
+                        <span id="statProfit">0</span>
+                  </div>
+            </div>
+
+            <!-- tampilan tabel riwayat -->
+            <table border="1" width="100%">
+                  <thead>
+                        <tr>
+                              <th>Tanggal</th>
+                              <th>pair</th>
+                              <th>Tipe open</th>
+                              <th>Target Loss</th>
+                              <th>Target profit</th>
+                              <th>Aktual</th>
+                              <th>Keterangan</th>
+                        </tr>
+                  </thead>
+
+                  <tbody id="riwayatTableForex"></tbody>
+            </table>
+
+            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+            <script type="module" src="js/pages/riwayat_forex.js"></script>
+</body>
+</html>

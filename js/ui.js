@@ -60,3 +60,25 @@ export function renderHistoryTable(data) {
             table.appendChild(tr);
       });
 }
+
+export function renderHistoryForex(data) {
+      const fTable = document.getElementById("riwayatTableForex");
+
+      if (!fTable) return;
+
+      fTable.innerHTML = "";
+
+      data.forEach((item) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                  <td>${item.tanggal || "-"}</td>
+                  <td>${item.pair}</td>
+                  <td>${item.tipe_open}</td>
+                  <td>${item.t_loss}</td>
+                  <td>${item.t_profit}</td>
+                  <td>${item.aktual}</td>
+                  <td>${item.keterangan}</td>
+                  `;
+                  fTable.appendChild(tr);
+      });
+}
