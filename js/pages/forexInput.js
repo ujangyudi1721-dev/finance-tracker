@@ -21,7 +21,7 @@ if (form) {
         console.log(forex);
 
         alert("data berhasil di simpan");
-        window.location.href = "riwayat_forex.html";
+        window.location.href="input_forex.html"
     });
     
 }

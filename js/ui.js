@@ -74,6 +74,7 @@ export function renderHistoryForex(data) {
                   <td>${item.tanggal || "-"}</td>
                   <td>${item.pair}</td>
                   <td>${item.tipe_open}</td>
+                  <td>${item.lot}</td>
                   <td>${item.t_loss}</td>
                   <td>${item.t_profit}</td>
                   <td>${item.aktual}</td>
