@@ -94,7 +94,14 @@ loan {
 
 .chart-container {
       width: 100%;
-      max-width: 600px; /* --- Batas lebar --- */
+      max-width: 1020px; /* --- Batas lebar --- */
+      height: 300px; /* --- Tinggi tetap --- */
+      margin: 20px auto; /* --- Tengah --- */
+}
+
+.forex-container {
+      width: 100%;
+      max-width: 1000px; /* --- Batas lebar --- */
       height: 300px; /* --- Tinggi tetap --- */
       margin: 20px auto; /* --- Tengah --- */
 }
