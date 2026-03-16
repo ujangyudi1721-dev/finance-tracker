@@ -71,7 +71,7 @@ export function renderHistoryForex(data) {
       data.forEach((item) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                  <td>${item.tanggal || "-"}</td>
+                  <td>${item.created_at || "-"}</td>
                   <td>${item.pair}</td>
                   <td>${item.tipe_open}</td>
                   <td>${item.lot}</td>

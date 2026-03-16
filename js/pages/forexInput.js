@@ -9,7 +9,7 @@ if (form) {
         e.preventDefault();
 
         const forex = {
-            tanggal: document.getElementById("tanggal").value,
+            created_at: document.getElementById("created_at").value,
             tipe_open: document.getElementById("tipe_open").value,
             pair: document.getElementById("pair").value,
             lot: document.getElementById("lot").value,

@@ -20,7 +20,7 @@ export async function createForex(forex) {
       .from("forex")
       .insert([
             {
-            tanggal: forex.tanggal,
+            created_at: forex.created_at,
             pair: forex.pair,
             tipe_open: forex.tipe_open,
             t_loss: loss,
@@ -50,7 +50,7 @@ export async function getForex(limit = null) {
       const { data, error } = await supabase
             .from("forex")
             .select("*")
-            .order("tanggal", {ascending: false})
+            .order("id", {ascending: false})
             .limit (limit);
 
       if (error) {

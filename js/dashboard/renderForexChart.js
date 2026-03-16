@@ -4,7 +4,7 @@ export function renderForexChart(data) {
         console.warn("Data forex kosong")
     }
 
-    const labels = data.map(item => item.tanggal);
+    const labels = data.map(item => item.created_at);
     const saldo = data.map(item => item.saldo);
 
         const ctx =document.getElementById("forexChart");
