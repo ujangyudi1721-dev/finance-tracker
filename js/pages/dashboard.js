@@ -35,8 +35,8 @@ async function loadForexChart() {
       
       const {data, error } = await supabase
       .from("forex")
-      .select("tanggal, saldo")
-      .order("tanggal", {ascending: true})
+      .select("created_at, saldo")
+      .order("created_at", {ascending: true})
 
       if (error){
             console.error(error);

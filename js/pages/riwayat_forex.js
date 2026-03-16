@@ -25,7 +25,12 @@ async function loadForexsaldo() {
     const trades = await getForexTrades();
     const saldo = calculateSaldo(trades);
     const saldoEl = document.getElementById("statSaldo");
-    
+    const targetLoss = saldo * 0.01;
+    const targetProfit = saldo * 0.015;
+
+    document.getElementById("statLoss").textContent = targetLoss.toFixed(2);
+    document.getElementById("statProfit").textContent = targetProfit.toFixed(2);
+
     console.log(saldoEl);
 
     if (saldoEl){
