@@ -105,7 +105,7 @@ function setupFormSubmit() {
                         document.getElementById("tujuanAkun").value;
                   await createTransfer(data, tujuanAkun);
                   alert("Transfer berhasil");
-                  window.location.href = "index.html";
+                  window.location.href = "input.html";
                   return;
             }
 
