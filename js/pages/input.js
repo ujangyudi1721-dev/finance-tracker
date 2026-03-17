@@ -117,6 +117,6 @@ function setupFormSubmit() {
                   alert("Transaksi berhasil disimpan");
             }
 
-            window.location.href = "index.html";
+            window.location.href = "input.html";
       });
 }
