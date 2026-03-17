@@ -50,6 +50,10 @@ function applyFilter() {
             .getElementById("filterType")
             .value.toLowerCase();
 
+      const akunValue = document
+            .getElementById("filterAkun")
+            .value.toLowerCase();
+
       const dateValue = document.getElementById("filterDate").value;
 
       const today = new Date();
@@ -57,10 +61,12 @@ function applyFilter() {
       const filtered = allTransactions.filter((item) => {
             const tipe = (item.tipe || "").toLowerCase();
             const ket = (item.keterangan || "").toLowerCase();
+            const akn = (item.akun || "").toLowerCase();
 
             const matchSearch = ket.includes(searchValue);
 
             const matchType = typeValue === "all" || tipe === typeValue;
+            const matchAkun = akunValue === "all" || akn === akunValue;
 
             // --- filter tanggal ---
             let matchDate = true;
@@ -86,7 +92,7 @@ function applyFilter() {
                               itemDate.getFullYear() === today.getFullYear()
                   }
             }
-            return matchSearch && matchType && matchDate;
+            return matchSearch && matchType && matchDate && matchAkun;
       });
       console.log("FILTER RESULT:", filtered);
       renderHistoryTable(filtered);
@@ -99,6 +105,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       document
             .getElementById("searchInput")
             .addEventListener("input", applyFilter);
+      document
+            .getElementById("filterAkun")
+            .addEventListener("change", applyFilter);
       document
             .getElementById("filterType")
             .addEventListener("change", applyFilter);
