@@ -1,13 +1,17 @@
+
 export function renderForexChart(data) {
 
+    const MAX_DATA = 50;
     if(!data || data.length === 0){
         console.warn("Data forex kosong")
     }
 
-    const labels = data.map(item => item.created_at);
-    const saldo = data.map(item => item.saldo);
+    const slicedData = data.slice(-MAX_DATA);
 
-        const ctx =document.getElementById("forexChart");
+    const labels = slicedData.map(item => item.created_at);
+    const saldo = slicedData.map(item => item.saldo);
+
+        const ctx =document.getElementById("forexChart").getContext("2d");
 
         new Chart(ctx, {
             type: "line",
@@ -16,8 +20,8 @@ export function renderForexChart(data) {
                 datasets: [{
                     label: "Saldo Forex",
                     data: saldo,
-                    borderWidth: 2,
-                    tension: 0.2
+                    borderWidth: 1,
+                    tension: 0.4
                 }]
             },
 

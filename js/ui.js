@@ -45,6 +45,16 @@ export function renderHistoryTable(data) {
 
             const jumlah = Number(item.jumlah) || 0;
 
+            if(item.tipe === "income"){
+                  tr.classList.add("income");
+            }
+            else if (item.tipe === "expense"){ 
+                  tr.classList.add("expense");
+            }
+            else if (item.tipe === "transfer") {
+                  tr.classList.add("transfer");
+            }
+
             tr.innerHTML = `
                   <td>${item.tanggal || "-"}</td>
                   <td>${item.tipe}</td>
@@ -70,6 +80,14 @@ export function renderHistoryForex(data) {
 
       data.forEach((item) => {
             const tr = document.createElement("tr");
+
+            if(item.aktual <= 0 ){
+                  tr.classList.add("loss");
+            }
+            else if (item.aktual >= 0 ){ 
+                  tr.classList.add("profit");
+            }
+
             tr.innerHTML = `
                   <td>${item.created_at || "-"}</td>
                   <td>${item.pair}</td>

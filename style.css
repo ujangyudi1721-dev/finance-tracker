@@ -24,12 +24,16 @@ nav a {
 
 .income {
       color: #0a7a28;
-      font-weight: bold;
+      
 }
 
 .expense {
       color: #920a1e;
-      font-weight: bold;
+      
+}
+.transfer {
+      color: #0826a8;
+      
 }
 
 .button {
@@ -270,4 +274,17 @@ canvas#forexChart {
       margin-bottom: 15px;
       border-radius: 10px;
       color: red;
+}
+
+.loss {
+      color: #b00020;
+      
+}
+
+.profit {
+      color: #0310ff;
+}
+
+.statSaldo {
+      color: #0713ec;
 }
