@@ -1,0 +1,28 @@
+
+import { createForex } from "../services/forexService.js";
+
+
+const form = document.getElementById("inputForex");
+
+if (form) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const forex = {
+            created_at: document.getElementById("created_at").value,
+            tipe_open: document.getElementById("tipe_open").value,
+            pair: document.getElementById("pair").value,
+            lot: document.getElementById("lot").value,
+            aktual: Number(document.getElementById("aktual").value),
+            exit: document.getElementById("exit").value,
+            keterangan: document.getElementById("keterangan").value,
+        };
+
+        await createForex(forex);
+        console.log(forex);
+
+        alert("data berhasil di simpan");
+        window.location.href="input_forex_exness.html"
+    });
+    
+}
